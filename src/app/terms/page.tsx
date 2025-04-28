@@ -21,13 +21,13 @@ const TermsPage = () => {
 
           <h3 className="text-teal-600 font-semibold mt-8 mb-4 text-xl">2. Use License</h3>
           <p className="mb-4">
-            Permission is granted to temporarily download one copy of the materials (information or software) on EKLab's website
+            Permission is granted to temporarily download one copy of the materials (information or software) on EKLab&apos;s website
             for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
           </p>
 
           <h3 className="text-teal-600 font-semibold mt-8 mb-4 text-xl">3. Disclaimer</h3>
           <p className="mb-4">
-            The materials on EKLab's website are provided on an 'as is' basis. EKLab makes no warranties, expressed or implied,
+            The materials on EKLab&apos;s website are provided on an &apos;as is&apos; basis. EKLab makes no warranties, expressed or implied,
             and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions
             of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
           </p>
@@ -35,12 +35,12 @@ const TermsPage = () => {
           <h3 className="text-teal-600 font-semibold mt-8 mb-4 text-xl">4. Limitations</h3>
           <p className="mb-4">
             In no event shall EKLab or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit,
-            or due to business interruption) arising out of the use or inability to use the materials on EKLab's website.
+            or due to business interruption) arising out of the use or inability to use the materials on EKLab&apos;s website.
           </p>
 
           <h3 className="text-teal-600 font-semibold mt-8 mb-4 text-xl">5. Revisions and Errata</h3>
           <p className="mb-4">
-            The materials appearing on EKLab's website could include technical, typographical, or photographic errors.
+            The materials appearing on EKLab&apos;s website could include technical, typographical, or photographic errors.
             EKLab does not warrant that any of the materials on its website are accurate, complete, or current.
             EKLab may make changes to the materials contained on its website at any time without notice.
           </p>

@@ -74,8 +74,8 @@ const SoftwarePage = () => {
               </h3>
               <div className="mt-2 max-w-xl text-sm text-gray-500">
                 <p>
-                  Let's discuss how we can help bring your software ideas to life. Fill out the form below
-                  and we'll get back to you within 24 hours.
+                  Let&apos;s discuss how we can help bring your software ideas to life. Fill out the form below
+                  and we&apos;ll get back to you within 24 hours.
                 </p>
               </div>
               <form onSubmit={handleSubmit} className="mt-5 space-y-4">
