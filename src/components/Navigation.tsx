@@ -21,6 +21,9 @@ const Navigation = () => {
               <Link href="/steam-education" className="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-teal-500">
                 STEAM Education
               </Link>
+              <Link href="/products" className="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-teal-500">
+                Products
+              </Link>
               <Link href="/faq" className="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-teal-500">
                 FAQ
               </Link>
