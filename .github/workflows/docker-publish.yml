@@ -1,3 +1,11 @@
+# Runtime env for the Next.js container (set on your host / platform — do NOT bake secrets into the image):
+#   CHATBOT_VECTOR_API_URL   (optional; defaults in app to https://vectorclientapi.eklab.xyz)
+#   CHATBOT_ENDPOINT_ID
+#   CHATBOT_USER_ID
+#   CHATBOT_API_TOKEN
+# Example: docker run -e CHATBOT_ENDPOINT_ID=... -e CHATBOT_USER_ID=... -e CHATBOT_API_TOKEN=... <image>
+# GitHub: store values as repository secrets and inject them only at deploy/runtime, not as Docker build-args.
+
 name: Docker Build and Push
 
 on:
