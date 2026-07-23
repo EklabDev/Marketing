@@ -1,7 +1,5 @@
-import { generateSeoReport } from '@/lib/seo'
-import SeoReportView from './SeoReportView'
+import { permanentRedirect } from 'next/navigation'
 
-export default function SeoReportPage() {
-  const report = generateSeoReport()
-  return <SeoReportView report={report} />
+export default function SeoReportRedirect() {
+  permanentRedirect('/seo-analytics')
 }

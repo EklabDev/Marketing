@@ -1,13 +1,11 @@
 import JsonLd from '@/components/JsonLd'
-import { buildFaqJsonLd, createPageMetadata, FAQ_ITEMS, getSeoPage } from '@/lib/seo'
+import { buildFaqJsonLd, FAQ_ITEMS, generateSeoMetadata } from '@/lib/seo'
 
-const page = getSeoPage('faq')
+export const dynamic = 'force-dynamic'
 
-export const metadata = createPageMetadata({
-  title: page.title,
-  description: page.description,
-  path: page.path,
-})
+export async function generateMetadata() {
+  return generateSeoMetadata('faq')
+}
 
 const FAQPage = () => {
   return (

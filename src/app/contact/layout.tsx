@@ -1,12 +1,10 @@
-import { createPageMetadata, getSeoPage } from '@/lib/seo'
+import { generateSeoMetadata } from '@/lib/seo'
 
-const page = getSeoPage('contact')
+export const dynamic = 'force-dynamic'
 
-export const metadata = createPageMetadata({
-  title: page.title,
-  description: page.description,
-  path: page.path,
-})
+export async function generateMetadata() {
+  return generateSeoMetadata('contact')
+}
 
 export default function ContactLayout({
   children,

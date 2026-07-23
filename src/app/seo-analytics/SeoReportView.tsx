@@ -1,7 +1,13 @@
 import type { SeoReport } from '@/lib/seo/report'
 import { ScoreBadge, StatusDot } from './ScoreBadge'
 
-export default function SeoReportView({ report }: { report: SeoReport }) {
+export default function SeoReportView({
+  report,
+  compactHeader = false,
+}: {
+  report: SeoReport
+  compactHeader?: boolean
+}) {
   const generated = new Date(report.generatedAt).toLocaleString('en-CA', {
     dateStyle: 'medium',
     timeStyle: 'short',
@@ -9,29 +15,40 @@ export default function SeoReportView({ report }: { report: SeoReport }) {
 
   return (
     <div className="bg-slate-50 min-h-full">
-      <div className="border-b border-slate-200 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <p className="text-sm font-medium text-teal-700">Internal · Marketing</p>
-          <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold text-slate-900">
-            SEO Report
-          </h1>
-          <p className="mt-3 max-w-2xl text-slate-600">
-            Powered by{' '}
-            <a
-              href="https://github.com/CyberCraftBD/power-seo"
-              className="text-teal-700 underline underline-offset-2"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @power-seo
-            </a>
-            . Use this page to prioritize content, metadata, and internal-linking work.
-          </p>
-          <p className="mt-2 text-sm text-slate-500">
+      {!compactHeader && (
+        <div className="border-b border-slate-200 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <p className="text-sm font-medium text-teal-700">Internal · Marketing</p>
+            <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold text-slate-900">
+              SEO Analytics
+            </h1>
+            <p className="mt-3 max-w-2xl text-slate-600">
+              Powered by{' '}
+              <a
+                href="https://github.com/CyberCraftBD/power-seo"
+                className="text-teal-700 underline underline-offset-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                @power-seo
+              </a>
+              . Use this page to prioritize content, metadata, and internal-linking work.
+            </p>
+            <p className="mt-2 text-sm text-slate-500">
+              Generated {generated} · Site {report.siteUrl}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {compactHeader && (
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          <h1 className="text-2xl font-bold text-slate-900">Power SEO analytics</h1>
+          <p className="mt-1 text-sm text-slate-500">
             Generated {generated} · Site {report.siteUrl}
           </p>
         </div>
-      </div>
+      )}
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
         <section>

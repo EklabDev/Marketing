@@ -15,7 +15,8 @@ import {
   type SerpPreviewData,
 } from '@power-seo/preview'
 import { analyzeReadability, type ReadabilityOutput } from '@power-seo/readability'
-import { getPageUrl, SEO_PAGES, type SeoPageDefinition } from './pages'
+import { getPageUrl, type SeoPageDefinition } from './pages'
+import { getSeoPagesWithOverrides } from './store'
 import { SITE_NAME, SITE_URL } from './site'
 
 export interface PageSeoInsight {
@@ -113,10 +114,11 @@ function collectMarketingPriorities(
 
 /** Run a full Power SEO report for marketing analysis. */
 export function generateSeoReport(): SeoReport {
-  const auditInputs = SEO_PAGES.map(toAuditInput)
+  const seoPages = getSeoPagesWithOverrides()
+  const auditInputs = seoPages.map(toAuditInput)
   const site = auditSite({ pages: auditInputs, hostname: SITE_URL })
 
-  const pages: PageSeoInsight[] = SEO_PAGES.map((page) => {
+  const pages: PageSeoInsight[] = seoPages.map((page) => {
     const url = getPageUrl(page)
     const audit = auditPage(toAuditInput(page))
     const content = analyzeContent({
@@ -148,7 +150,7 @@ export function generateSeoReport(): SeoReport {
     return { page, url, audit, content, readability, serp, og }
   })
 
-  const steamImages = SEO_PAGES.find((page) => page.id === 'steam-education')?.images ?? []
+  const steamImages = seoPages.find((page) => page.id === 'steam-education')?.images ?? []
   const images =
     steamImages.length > 0
       ? analyzeAltText(
@@ -162,7 +164,7 @@ export function generateSeoReport(): SeoReport {
       : null
 
   const graph = buildLinkGraph(
-    SEO_PAGES.map((page) => ({
+    seoPages.map((page) => ({
       url: getPageUrl(page),
       title: page.title,
       content: page.contentHtml,
