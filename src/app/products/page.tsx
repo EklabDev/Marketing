@@ -1,4 +1,11 @@
 import Link from 'next/link'
+import { generateSeoMetadata } from '@/lib/seo'
+
+export const dynamic = 'force-dynamic'
+
+export async function generateMetadata() {
+  return generateSeoMetadata('products')
+}
 
 const ProductsPage = () => {
   const libraries = [

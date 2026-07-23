@@ -1,4 +1,11 @@
 import Image from 'next/image'
+import { generateSeoMetadata } from '@/lib/seo'
+
+export const dynamic = 'force-dynamic'
+
+export async function generateMetadata() {
+  return generateSeoMetadata('steam-education')
+}
 
 const SteamEducationPage = () => {
   const classes = [

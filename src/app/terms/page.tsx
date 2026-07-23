@@ -1,3 +1,11 @@
+import { generateSeoMetadata } from '@/lib/seo'
+
+export const dynamic = 'force-dynamic'
+
+export async function generateMetadata() {
+  return generateSeoMetadata('terms')
+}
+
 const TermsPage = () => {
   return (
     <div className="bg-white py-16 px-4 sm:px-6 lg:px-8">

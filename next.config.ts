@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-  /* config options here */
   output: "standalone",
+  serverExternalPackages: ["better-sqlite3"],
 };
 
 export default nextConfig;

@@ -1,10 +1,28 @@
+# Publish a self-contained container image to GHCR (replaces static GitHub Pages deploys).
+#
 # Runtime env for the Next.js container (set on your host / platform — do NOT bake secrets into the image):
-#   CHATBOT_VECTOR_API_URL   (optional; defaults in app to https://vectorclientapi.eklab.xyz)
+#   NEXT_PUBLIC_SITE_URL
+#   SEO_ANALYTICS_USERNAME
+#   SEO_ANALYTICS_PASSWORD
+#   SEO_ANALYTICS_SECRET          (optional)
+#   SQLITE_PATH                  (default inside image: /data/seo.db)
+#   CHATBOT_VECTOR_API_URL       (optional; defaults in app to https://vectorclientapi.eklab.xyz)
 #   CHATBOT_ENDPOINT_ID
 #   CHATBOT_USER_ID
 #   CHATBOT_API_TOKEN
-# Example: docker run -e CHATBOT_ENDPOINT_ID=... -e CHATBOT_USER_ID=... -e CHATBOT_API_TOKEN=... <image>
-# GitHub: store values as repository secrets and inject them only at deploy/runtime, not as Docker build-args.
+#
+# Example:
+#   docker run --rm -p 3000:3000 \
+#     -v eklab-seo-data:/data \
+#     -e NEXT_PUBLIC_SITE_URL=https://eklab.xyz \
+#     -e SEO_ANALYTICS_USERNAME=... \
+#     -e SEO_ANALYTICS_PASSWORD=... \
+#     -e CHATBOT_ENDPOINT_ID=... \
+#     -e CHATBOT_USER_ID=... \
+#     -e CHATBOT_API_TOKEN=... \
+#     ghcr.io/<org>/marketing:main
+#
+# Open the unlisted analytics UI at /seo-analytics (no site navigation link).
 
 name: Docker Build and Push
 
@@ -29,29 +47,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Log in to the Container registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix=sha-
+            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/arm64/v8
-          push: true
+          platforms: linux/amd64,linux/arm64
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }} 
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
