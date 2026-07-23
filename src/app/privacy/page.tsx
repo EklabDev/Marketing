@@ -1,3 +1,13 @@
+import { createPageMetadata, getSeoPage } from '@/lib/seo'
+
+const page = getSeoPage('privacy')
+
+export const metadata = createPageMetadata({
+  title: page.title,
+  description: page.description,
+  path: page.path,
+})
+
 const PrivacyPage = () => {
   return (
     <div className="bg-white py-16 px-4 sm:px-6 lg:px-8">

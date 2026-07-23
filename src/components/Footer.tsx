@@ -59,6 +59,11 @@ const Footer = () => {
                   Terms of Service
                 </Link>
               </li>
+              <li>
+                <Link href="/seo-report" className="text-base text-gray-500 hover:text-gray-900">
+                  SEO Report
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

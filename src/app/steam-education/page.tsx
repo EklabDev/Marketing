@@ -1,4 +1,13 @@
 import Image from 'next/image'
+import { createPageMetadata, getSeoPage } from '@/lib/seo'
+
+const page = getSeoPage('steam-education')
+
+export const metadata = createPageMetadata({
+  title: page.title,
+  description: page.description,
+  path: page.path,
+})
 
 const SteamEducationPage = () => {
   const classes = [

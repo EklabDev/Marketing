@@ -1,4 +1,13 @@
 import Link from 'next/link'
+import { createPageMetadata, getSeoPage } from '@/lib/seo'
+
+const page = getSeoPage('home')
+
+export const metadata = createPageMetadata({
+  title: page.title,
+  description: page.description,
+  path: page.path,
+})
 
 const Home = () => {
   return (
