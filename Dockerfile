@@ -46,6 +46,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# /app itself is created as root by WORKDIR; make it writable for the app user
+# (belt-and-suspenders if SQLITE_PATH ever resolves under /app).
+RUN chown nextjs:nodejs /app
+
 USER nextjs
 
 VOLUME ["/data"]
