@@ -1,5 +1,8 @@
 # Self-contained Next.js marketing image (standalone output + SQLite).
 #
+# Base: Ubuntu Noble (glibc 2.39) so better-sqlite3 linux-arm64 prebuilds
+# (which need GLIBC_2.38+) load correctly. Debian Bookworm is only ~2.36.
+#
 # Runtime environment (inject at deploy time — do NOT bake secrets into the image):
 #   NEXT_PUBLIC_SITE_URL
 #   SEO_ANALYTICS_USERNAME
@@ -14,7 +17,7 @@
 # Persist SEO metadata across restarts:
 #   docker run -v eklab-seo-data:/data -e SQLITE_PATH=/data/seo.db ...
 
-FROM node:24-bookworm-slim AS builder
+FROM node:24-noble-slim AS builder
 
 WORKDIR /app
 
@@ -23,16 +26,12 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json ./
-# better-sqlite3's linux-arm64 prebuild needs GLIBC_2.38+; bookworm has 2.36.
-# Compile against this image's libc and drop prebuilds so Node cannot load the wrong .node.
-RUN npm ci \
-  && npm rebuild better-sqlite3 --build-from-source \
-  && rm -rf node_modules/better-sqlite3/prebuilds
+RUN npm ci
 
 COPY . .
 RUN npm run build
 
-FROM node:24-bookworm-slim AS runner
+FROM node:24-noble-slim AS runner
 
 WORKDIR /app
 
@@ -49,7 +48,6 @@ RUN mkdir -p /data \
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# Prefer the bookworm-built native binding over any traced prebuild.
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/better-sqlite3 ./node_modules/better-sqlite3
 
 # /app itself is created as root by WORKDIR; make it writable for the app user
