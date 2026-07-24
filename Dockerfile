@@ -23,7 +23,11 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json ./
-RUN npm ci
+# better-sqlite3's linux-arm64 prebuild needs GLIBC_2.38+; bookworm has 2.36.
+# Compile against this image's libc and drop prebuilds so Node cannot load the wrong .node.
+RUN npm ci \
+  && npm rebuild better-sqlite3 --build-from-source \
+  && rm -rf node_modules/better-sqlite3/prebuilds
 
 COPY . .
 RUN npm run build
@@ -45,6 +49,8 @@ RUN mkdir -p /data \
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Prefer the bookworm-built native binding over any traced prebuild.
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/better-sqlite3 ./node_modules/better-sqlite3
 
 # /app itself is created as root by WORKDIR; make it writable for the app user
 # (belt-and-suspenders if SQLITE_PATH ever resolves under /app).
