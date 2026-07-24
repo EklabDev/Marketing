@@ -1,7 +1,8 @@
 # Self-contained Next.js marketing image (standalone output + SQLite).
 #
-# Base: Ubuntu Noble (glibc 2.39) so better-sqlite3 linux-arm64 prebuilds
-# (which need GLIBC_2.38+) load correctly. Debian Bookworm is only ~2.36.
+# Base: Debian Trixie (glibc 2.41) so better-sqlite3 linux-arm64 prebuilds
+# (which need GLIBC_2.38+) load correctly. Bookworm is only ~2.36; there is
+# no official node:*-noble image tag.
 #
 # Runtime environment (inject at deploy time — do NOT bake secrets into the image):
 #   NEXT_PUBLIC_SITE_URL
@@ -17,7 +18,7 @@
 # Persist SEO metadata across restarts:
 #   docker run -v eklab-seo-data:/data -e SQLITE_PATH=/data/seo.db ...
 
-FROM node:24-noble-slim AS builder
+FROM node:24-trixie-slim AS builder
 
 WORKDIR /app
 
@@ -31,7 +32,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:24-noble-slim AS runner
+FROM node:24-trixie-slim AS runner
 
 WORKDIR /app
 
