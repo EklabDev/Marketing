@@ -175,26 +175,33 @@ export const SEO_PAGES: SeoPageDefinition[] = [
     path: '/products',
     title: `Open Source Products & Tools | ${SITE_NAME}`,
     description:
-      'Explore EKLab open-source TypeScript libraries and tools on npm, including logging, concurrency, regex utilities, and more.',
+      'Explore EKLab open-source standards, TypeScript libraries, and developer tools including OpenDagger, EKTools, logging, concurrency, and more.',
     focusKeyphrase: 'open source TypeScript libraries',
-    headings: ['h2:Our Products', 'h3:Open Source Libraries', 'h3:Tools'],
+    headings: ['h2:Products', 'h3:Tools', 'h3:Libraries'],
     contentHtml: `
-      <h2>Our Products</h2>
-      <p>Discover EKLab open-source libraries and developer tools built for modern TypeScript and JavaScript workflows.</p>
-      <h3>Open Source Libraries</h3>
-      <p>@eklabdev/regexid, @eklabdev/loggerts4, @eklabdev/blingts4, @eklabdev/gochan, @eklabdev/bling, @eklabdev/dotjson, @eklabdev/superset, and @eklabdev/logger provide utilities for pattern generation, logging, concurrency, and data manipulation.</p>
+      <h2>Products</h2>
+      <p>Explore our open-source standards, libraries, and developer tools designed to enhance your development experience.</p>
       <h3>Tools</h3>
-      <p>EKTool and related developer tooling support productive engineering workflows across our product suite.</p>
+      <p>OpenDagger is an open YAML standard for documenting database design. EKTools provides transformation utilities. Additional tools include alternative-hictopswapper for Bambu Lab plate swaps, VectorClient for AI API gateways, VibeQuiz for PR review quizzes, Weaviate View for exploring Weaviate collections, and jdkvm for managing JDK versions.</p>
+      <h3>Libraries</h3>
+      <p>@eklabdev/regexid, @eklabdev/loggerts4, @eklabdev/blingts4, @eklabdev/gochan, @eklabdev/bling, @eklabdev/dotjson, @eklabdev/superset, @eklabdev/logger, and @eklabdev/dfsm provide utilities for pattern generation, logging, concurrency, set manipulation, and durable finite state machines.</p>
     `,
     internalLinks: ['/software', '/contact'],
     externalLinks: [
-      'https://www.npmjs.com/package/@eklabdev/regexid',
+      'https://opendagger.eklab.xyz',
       'https://ektool.eklab.xyz',
+      'https://github.com/EklabDev/alternative-hictopswapper',
+      'https://github.com/EklabDev/vectorclient',
+      'https://github.com/EklabDev/vibequiz',
+      'https://github.com/EklabDev/weviateview',
+      'https://github.com/EklabDev/jdkvm',
+      'https://www.npmjs.com/package/@eklabdev/regexid',
+      'https://www.npmjs.com/package/@eklabdev/dfsm',
     ],
     priority: 0.8,
     changeFrequency: 'weekly',
     includeInSitemap: true,
-    wordCount: 120,
+    wordCount: 180,
   },
   {
     id: 'faq',
