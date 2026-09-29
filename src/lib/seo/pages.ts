@@ -182,9 +182,9 @@ export const SEO_PAGES: SeoPageDefinition[] = [
       <h2>Our Products</h2>
       <p>Discover EKLab open-source libraries and developer tools built for modern TypeScript and JavaScript workflows.</p>
       <h3>Open Source Libraries</h3>
-      <p>@eklabdev/regexid, @eklabdev/loggerts4, @eklabdev/blingts4, @eklabdev/gochan, @eklabdev/bling, @eklabdev/dotjson, @eklabdev/superset, and @eklabdev/logger provide utilities for pattern generation, logging, concurrency, and data manipulation.</p>
+      <p>@eklabdev/regexid, @eklabdev/loggerts4, @eklabdev/blingts4, @eklabdev/gochan, @eklabdev/bling, @eklabdev/dotjson, @eklabdev/superset, @eklabdev/logger, and @eklabdev/fix-swift-forge provide utilities for pattern generation, logging, concurrency, financial messaging, and data manipulation.</p>
       <h3>Tools</h3>
-      <p>EKTool and related developer tooling support productive engineering workflows across our product suite.</p>
+      <p>EKTools, Weaviate Collections Explorer, VectorClient, OpenDagger, Booth Inventory, Receipt Scanner, jdkvm, VibeQuiz, Android Ad Blocker, iOS Traffic Inspector, and hictopswapper cover transformations, vector search, database design, inventory, receipts, JDKs, pull-request quizzes, on-device traffic rules, and 3D print plate swaps.</p>
     `,
     internalLinks: ['/software', '/contact'],
     externalLinks: [
@@ -194,7 +194,7 @@ export const SEO_PAGES: SeoPageDefinition[] = [
     priority: 0.8,
     changeFrequency: 'weekly',
     includeInSitemap: true,
-    wordCount: 120,
+    wordCount: 160,
   },
   {
     id: 'faq',

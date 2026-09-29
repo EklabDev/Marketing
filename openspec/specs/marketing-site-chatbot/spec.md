@@ -57,7 +57,7 @@ The system SHALL implement a Next.js Route Handler that accepts chat requests fr
 
 - **WHEN** the client sends `POST` to the app’s chat route with JSON containing non-empty `session_id` and `chat_message`
 - **AND** required server environment variables for base URL, endpoint id, user id, and API token are set
-- **THEN** the handler requests `POST` to the configured Vector Client URL path `/api/v1/endpoints/{endpoint_id}/{user_id}` with the same `session_id` and `chat_message` in the JSON body
+- **THEN** the handler requests `POST` to the configured Vector Client URL path `/api/v1/agents/{endpoint_id}/{user_id}` with `session_id` and `message` in the JSON body, where `message` is the client's `chat_message`
 - **AND** the handler sends the `x-api-key` header using the configured API token
 - **AND** the handler does not require or accept the API token from the request body or browser-supplied headers for authentication to the upstream API
 
@@ -73,16 +73,16 @@ The system SHALL implement a Next.js Route Handler that accepts chat requests fr
 
 ### Requirement: Upstream success response mapping
 
-The system SHALL interpret a successful Vector Client response that contains an `output` string and SHALL return a stable JSON shape to the client.
+The system SHALL interpret a successful Vector Client response that contains a `reply` string and SHALL return a stable JSON shape to the client.
 
 #### Scenario: Valid upstream body
 
-- **WHEN** the upstream responds with a JSON body containing a non-empty string `output`
-- **THEN** the Route Handler returns JSON to the browser including the assistant text in a stable field (e.g. `reply`) derived from `output`
+- **WHEN** the upstream responds with a JSON body containing a non-empty string `reply`
+- **THEN** the Route Handler returns JSON to the browser including that assistant text in the `reply` field
 
 #### Scenario: Invalid or missing output
 
-- **WHEN** the upstream responds with success HTTP status but the body lacks a usable string `output`
+- **WHEN** the upstream responds with success HTTP status but the body lacks a usable string `reply`
 - **THEN** the Route Handler responds with 502 (or equivalent) and a generic error message to the client
 - **AND** diagnostic details are logged server-side only
 

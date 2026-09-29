@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'chat_message is required.' }, { status: 400 })
   }
 
-  const url = `${base}/api/v1/endpoints/${encodeURIComponent(endpointId)}/${encodeURIComponent(userId)}`
+  const url = `${base}/api/v1/agents/${encodeURIComponent(endpointId)}/${encodeURIComponent(userId)}`
 
   let upstream: Response
   try {
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         session_id: sessionId.trim(),
-        chat_message: chatMessage.trim(),
+        message: chatMessage.trim(),
       }),
     })
   } catch (err) {
@@ -97,14 +97,14 @@ export async function POST(request: Request) {
     )
   }
 
-  const output = (data as Record<string, unknown>).output
-  if (typeof output !== 'string' || output.trim() === '') {
-    console.error('Chat proxy: missing or invalid output field', text.slice(0, 500))
+  const replyText = (data as Record<string, unknown>).reply
+  if (typeof replyText !== 'string' || replyText.trim() === '') {
+    console.error('Chat proxy: missing or invalid reply field', text.slice(0, 500))
     return NextResponse.json(
       { error: 'The assistant returned an unexpected response.' },
       { status: 502 }
     )
   }
 
-  return NextResponse.json({ reply: output })
+  return NextResponse.json({ reply: replyText })
 }
