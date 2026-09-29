@@ -1,4 +1,10 @@
 import Link from 'next/link'
+import {
+  PRODUCT_LIBRARIES,
+  PRODUCT_TOOLS,
+  productCtaLabel,
+  type ProductItem,
+} from '@/lib/products'
 import { generateSeoMetadata } from '@/lib/seo'
 
 export const dynamic = 'force-dynamic'
@@ -149,13 +155,13 @@ const ProductsPage = () => {
             Products
           </h2>
           <p className="mt-4 text-lg text-gray-500">
-            Explore our open-source libraries and developer tools designed to enhance your development experience.
+            Explore our open-source standards, libraries, and developer tools designed to enhance
+            your development experience.
           </p>
         </div>
 
-        {/* Libraries Section */}
         <div className="mt-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">Libraries</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-8">Tools</h3>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {libraries.map((lib) => (
               <div key={lib.name} className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
@@ -186,9 +192,8 @@ const ProductsPage = () => {
           </div>
         </div>
 
-        {/* Tools Section */}
         <div className="mt-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">Tools</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-8">Libraries</h3>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tools.map((tool) => (
               <div key={tool.name} className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">

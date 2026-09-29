@@ -175,9 +175,9 @@ export const SEO_PAGES: SeoPageDefinition[] = [
     path: '/products',
     title: `Open Source Products & Tools | ${SITE_NAME}`,
     description:
-      'Explore EKLab open-source TypeScript libraries and tools on npm, including logging, concurrency, regex utilities, and more.',
+      'Explore EKLab open-source standards, TypeScript libraries, and developer tools including OpenDagger, EKTools, logging, concurrency, and more.',
     focusKeyphrase: 'open source TypeScript libraries',
-    headings: ['h2:Our Products', 'h3:Open Source Libraries', 'h3:Tools'],
+    headings: ['h2:Products', 'h3:Tools', 'h3:Libraries'],
     contentHtml: `
       <h2>Our Products</h2>
       <p>Discover EKLab open-source libraries and developer tools built for modern TypeScript and JavaScript workflows.</p>
@@ -188,8 +188,15 @@ export const SEO_PAGES: SeoPageDefinition[] = [
     `,
     internalLinks: ['/software', '/contact'],
     externalLinks: [
-      'https://www.npmjs.com/package/@eklabdev/regexid',
+      'https://opendagger.eklab.xyz',
       'https://ektool.eklab.xyz',
+      'https://github.com/EklabDev/alternative-hictopswapper',
+      'https://github.com/EklabDev/vectorclient',
+      'https://github.com/EklabDev/vibequiz',
+      'https://github.com/EklabDev/weviateview',
+      'https://github.com/EklabDev/jdkvm',
+      'https://www.npmjs.com/package/@eklabdev/regexid',
+      'https://www.npmjs.com/package/@eklabdev/dfsm',
     ],
     priority: 0.8,
     changeFrequency: 'weekly',
