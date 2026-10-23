@@ -30,8 +30,12 @@ function base64UrlToBytes(value: string): Uint8Array {
   return bytes
 }
 
-function textToBytes(value: string): Uint8Array {
-  return new TextEncoder().encode(value)
+function textToBytes(value: string): ArrayBuffer {
+  const encoded = new TextEncoder().encode(value)
+  return encoded.buffer.slice(
+    encoded.byteOffset,
+    encoded.byteOffset + encoded.byteLength,
+  ) as ArrayBuffer
 }
 
 async function sign(value: string): Promise<string> {

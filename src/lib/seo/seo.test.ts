@@ -107,8 +107,10 @@ async function main() {
       noindex: true,
       nofollow: true,
     })
-    assert.equal(meta.robots?.index, false)
-    assert.equal(meta.robots?.follow, false)
+    const robots = meta.robots
+    assert.ok(robots && typeof robots === 'object' && !Array.isArray(robots))
+    assert.equal(robots.index, false)
+    assert.equal(robots.follow, false)
   })
 
   try {

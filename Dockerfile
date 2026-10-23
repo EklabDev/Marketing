@@ -1,8 +1,7 @@
 # Self-contained Next.js marketing image (standalone output + SQLite).
 #
-# Base: Debian Trixie (glibc 2.41) so better-sqlite3 linux-arm64 prebuilds
-# (which need GLIBC_2.38+) load correctly. Bookworm is only ~2.36; there is
-# no official node:*-noble image tag.
+# Base: Node 26.12.1 on Alpine, which is newer than the Node 24.22.1 Alpine
+# image. better-sqlite3 is compiled in the builder (no glibc prebuild).
 #
 # Runtime environment (inject at deploy time — do NOT bake secrets into the image):
 #   NEXT_PUBLIC_SITE_URL
@@ -18,13 +17,11 @@
 # Persist SEO metadata across restarts:
 #   docker run -v eklab-seo-data:/data -e SQLITE_PATH=/data/seo.db ...
 
-FROM node:24-trixie-slim AS builder
+FROM node:26.12.1-alpine AS builder
 
 WORKDIR /app
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends python3 make g++ \
-  && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache python3 make g++
 
 COPY package*.json ./
 RUN npm ci
@@ -32,7 +29,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:24-trixie-slim AS runner
+FROM node:26.12.1-alpine AS runner
 
 WORKDIR /app
 
@@ -41,9 +38,10 @@ ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 ENV SQLITE_PATH=/data/seo.db
 
-RUN mkdir -p /data \
-  && groupadd --system --gid 1001 nodejs \
-  && useradd --system --uid 1001 --gid nodejs nextjs \
+RUN apk add --no-cache libc6-compat \
+  && mkdir -p /data \
+  && addgroup -g 1001 -S nodejs \
+  && adduser -S -u 1001 -G nodejs nextjs \
   && chown -R nextjs:nodejs /data
 
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
